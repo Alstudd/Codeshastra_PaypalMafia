@@ -116,7 +116,7 @@ const CreateCourse = () => {
           {!status ? (
             <label
               htmlFor="dropzone-file"
-              className="dark:hover:bg-bray-800 my-2 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-600 bg-transparent hover:border-gray-500 hover:bg-gray-50"
+              className="dark:hover:bg-bray-800 my-2 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-600 bg-transparent hover:border-gray-500"
             >
               <div className="flex flex-col items-center justify-center py-16">
                 <UploadCloud />
