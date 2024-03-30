@@ -1,8 +1,7 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import { HeroParallaxDemo } from "../../components/HeroParallaxDemo";
-import CreateCourse from "../../components/CreateCourse";
 import { useTheme } from "next-themes";
 import {
 	AlchemyProvider,
@@ -38,15 +37,14 @@ export default function Home() {
 		console.log(tx);
 	};
 
-	verify();
+	// verify();
 
 	const { setTheme } = useTheme();
 	setTheme("dark");
 	return (
 		<>
 			<Navbar />
-			{/* <HeroParallaxDemo/> */}
-			<CreateCourse />
+			<HeroParallaxDemo/>
 		</>
 	);
 }
