@@ -17,12 +17,14 @@ import { Dialog, Switch, Transition } from "@headlessui/react";
 import { redirect } from "next/navigation";
 // import { getSession } from "next-auth/react";
 // import { getServerAuthSession } from "~/server/auth";
-import { AddCourse } from "./db/AddCourse";
+// import { AddCourse } from "./db/AddCourse";
 import { useAccount } from "wagmi";
+import { db } from "~/server/db";
+import { getServerAuthSession } from "~/server/auth";
 
 const CreateCourse = () => {
-  const { address, isConnecting, isDisconnected } = useAccount();
-  console.log(address)
+  // const { address, isConnecting, isDisconnected } = useAccount();
+  // console.log(address)
   const [sessionValue, setSessionValue] = useState<string | null>(null)
 
 
@@ -59,45 +61,51 @@ const CreateCourse = () => {
   const handleSubmit = async () => {
     toggle(2)
 
+    // try {
+    //   const newCourse = await AddCourse(
+    //     cName,
+    //     cDesc,
+    //     price, // Assuming price is stored as an integer
+    //     sessionValue,
+    //     // Add other necessary fields here
+    //   )
+
+    //   console.log('Course created successfully:', newCourse);
+    //   // Reset form fields after successful course creation
+    //   setCName('');
+    //   setCDesc('');
+    //   setPrice('');
+    // }
+    // catch (error) {
+    //   console.error('Error creating course:', error);
+    // }
+
     try {
-      const newCourse = await AddCourse(
-        cName,
-        cDesc,
-        price, // Assuming price is stored as an integer
-        sessionValue,
-        // Add other necessary fields here
-      )
+      // const session = await getServerAuthSession();
+      // console.log(session)
+
+      // if (!session) {
+      //   console.error('User is not authenticated');
+      //   return;
+      // }
+      const newCourse = await db.teachercourse.create({
+        data: {
+          title: cName,
+          description: cDesc,
+          price: parseInt(price), // Assuming price is stored as an integer
+          userId: "123",
+          // Add other necessary fields here
+        },
+      });
 
       console.log('Course created successfully:', newCourse);
       // Reset form fields after successful course creation
       setCName('');
       setCDesc('');
       setPrice('');
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error creating course:', error);
     }
-
-  //   try {
-  //     console.log("j")
-  //     const newCourse = await db.teachercourse.create({
-  //       data: {
-  //         title: cName,
-  //         description: cDesc,
-  //         price: parseInt(price), // Assuming price is stored as an integer
-  //         userId: session.user.id,
-  //         // Add other necessary fields here
-  //       },
-  //     });
-
-  //     console.log('Course created successfully:', newCourse);
-  //     // Reset form fields after successful course creation
-  //     setCName('');
-  //     setCDesc('');
-  //     setPrice('');
-  //   } catch (error) {
-  //     console.error('Error creating course:', error);
-  //   }
   };
 
   function closeModal() {
