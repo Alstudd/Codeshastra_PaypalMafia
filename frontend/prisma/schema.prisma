@@ -154,10 +154,11 @@ model Quest {
 model Teacherchap {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  name            String?
+  name            String
   description     String?
   time        DateTime?
   summary         String?
+  pro            Boolean?
   Teachercourse   Teachercourse? @relation(fields: [teachercourseId], references: [id])
   teachercourseId String?        @db.ObjectId
 

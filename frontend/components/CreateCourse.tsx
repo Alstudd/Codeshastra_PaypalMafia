@@ -14,6 +14,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
 import { Dialog, Switch, Transition } from "@headlessui/react";
+import { redirect } from "next/navigation";
+import { getSession } from "next-auth/react";
+import { prisma } from "@/lib/db";
+import { getAuthSession } from "@/lib/nextauth";
 
 const CreateCourse = () => {
   const chapArr = [
@@ -26,22 +30,7 @@ const CreateCourse = () => {
   ];
   let [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  const [toggletab, setToggletab] = useState(1);
-  const [chpName, setChpName] = useState("");
-  const [chpDesc, setChpDesc] = useState("");
-  const [cName, setCName] = useState("");
-  const [cDesc, setCDesc] = useState("");
-  const [price, setPrice] = useState("");
-  const [status, setStatus] = useState(false);
-
-  const submit = async () => {
+  const submit = () => {
     const id = toast.loading("Please wait...", {
       theme: "dark",
     });
@@ -58,7 +47,56 @@ const CreateCourse = () => {
       icon: ({ theme, type }) => <MailCheck className="text-[#bb86fc]" />,
     });
     closeModal();
+  }
+
+  // Function to handle form submission
+  const handleSubmit = async () => {
+    toggle(2)
+    console.log("hi")
+    const session = await getAuthSession();
+    console.log(session)
+
+    if (!session) {
+      console.error('User is not authenticated');
+      return;
+    }
+
+    try {
+      console.log("j")
+      const newCourse = await prisma.teachercourse.create({
+        data: {
+          title: cName,
+          description: cDesc,
+          price: parseInt(price), // Assuming price is stored as an integer
+          userId: session.user.id,
+          // Add other necessary fields here
+        },
+      });
+
+      console.log('Course created successfully:', newCourse);
+      // Reset form fields after successful course creation
+      setCName('');
+      setCDesc('');
+      setPrice('');
+    } catch (error) {
+      console.error('Error creating course:', error);
+    }
   };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  const [toggletab, setToggletab] = useState(1);
+  const [chpName, setChpName] = useState("");
+  const [chpDesc, setChpDesc] = useState("");
+  const [cName, setCName] = useState("");
+  const [cDesc, setCDesc] = useState("");
+  const [price, setPrice] = useState("");
+  const [status, setStatus] = useState(false);
 
   const [enabled, setEnabled] = useState(false);
 
@@ -135,9 +173,9 @@ const CreateCourse = () => {
       </div>
 
       <div className={toggletab === 1 ? "block" : "hidden"}>
-        <form
-        // onSubmit={submit}
-        >
+        {/* <form
+        onSubmit={handleSubmit}
+        > */}
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -211,12 +249,12 @@ const CreateCourse = () => {
 
           <button
             type="button"
-            onClick={() => toggle(2)}
+            onClick={handleSubmit}
             className="inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none "
           >
             <ArrowRight size={22} /> Next Step
           </button>
-        </form>
+        {/* </form> */}
       </div>
 
       <div className={toggletab === 2 ? "block" : "hidden"}>
@@ -410,7 +448,7 @@ const CreateCourse = () => {
                         <h3 className="mb-3 text-2xl font-bold tracking-tight dark:text-black text-white ">
                           Enter Topic Details
                         </h3>
-                        <form onSubmit={submit}>
+                        <form onSubmit={() => {}}>
                           <div className="mb-4">
                             <label
                               htmlFor="email"
@@ -467,8 +505,7 @@ const CreateCourse = () => {
                           </div>
 
                           <button
-                            type="button"
-                            onClick={submit}
+                            type="submit"
                             className="inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none "
                           >
                             <Plus /> Add Chapter
