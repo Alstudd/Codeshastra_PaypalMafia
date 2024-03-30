@@ -5,7 +5,10 @@ contract CourseMarketplace {
     address public owner; // Owner of the contract
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only contract owner can call this function");
+        require(
+            msg.sender == owner,
+            "Only contract owner can call this function"
+        );
         _;
     }
 
@@ -55,7 +58,7 @@ contract CourseMarketplace {
         return studentInfo[msg.sender].count;
     }
 
-    function getCourseOfStudent(uint256 _index) public view returns (uint256){
+    function getCourseOfStudent(uint256 _index) public view returns (uint256) {
         return studentInfo[msg.sender].enrolledIn[_index];
     }
 
@@ -63,7 +66,10 @@ contract CourseMarketplace {
         Course storage course = courses[_courseId];
         require(course.instructor != address(0), "Course does not exist");
         require(msg.value >= course.price, "Insufficient funds");
-        require(!purchasedCourses[_courseId][msg.sender], "Course already purchased");
+        require(
+            !purchasedCourses[_courseId][msg.sender],
+            "Course already purchased"
+        );
 
         // Transfer payment to instructor
         pay(course.instructor, msg.value);
@@ -85,10 +91,16 @@ contract CourseMarketplace {
         _receiver.transfer(_amount);
     }
 
-    function completeCourse(uint256 _courseId, address _student) public onlyOwner {
-    require(purchasedCourses[_courseId][_student], "Course not purchased by the specified student");
-    emit CourseCompleted(_student, _courseId);
-}
+    function completeCourse(
+        uint256 _courseId,
+        address _student
+    ) public onlyOwner {
+        require(
+            purchasedCourses[_courseId][_student],
+            "Course not purchased by the specified student"
+        );
+        emit CourseCompleted(_student, _courseId);
+    }
 
     // function completeCourse(uint256 _courseId) public onlyOwner {
     //     require(purchasedCourses[_courseId][msg.sender], "Course not purchased");
@@ -97,7 +109,10 @@ contract CourseMarketplace {
     //     emit CourseCompleted(msg.sender, _courseId);
     // }
 
-    function verifyCoursePurchase(uint256 _courseId, address _student) public view returns (bool) {
+    function verifyCoursePurchase(
+        uint256 _courseId,
+        address _student
+    ) public view returns (bool) {
         return purchasedCourses[_courseId][_student];
     }
 }
