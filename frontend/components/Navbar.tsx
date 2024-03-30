@@ -1,9 +1,23 @@
-import { Mail, Phone, Scroll } from "lucide-react";
+"use client";
+import { Mail, Phone, Scroll, User2 } from "lucide-react";
 import React from "react";
-import logo  from '../public/LearnBlocksLogo.png'
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+import logo from "../public/LearnBlocksLogo.png";
+import stud from "../public/stud.png";
+import teach from "../public/teach.png";
 import Image from "next/image";
 
 const Navbar = () => {
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
   return (
     <div>
       <nav className="bg-black opacity-90 border-gray-200 ">
@@ -12,12 +26,7 @@ const Navbar = () => {
             href="/"
             className="flex items-center text-white space-x-3 rtl:space-x-reverse"
           >
-            <Image
-              src={logo}
-              height={30}
-              width={30}
-              alt="logo"
-            />
+            <Image src={logo} height={30} width={30} alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
               Learn <span className="text-lb-pink">Blocks</span>
             </span>
@@ -33,13 +42,12 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a
-                href="AlvinDsouza_Resume.pdf"
-                target="blank"
+              <button
+                onClick={openModal}
                 className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
               >
-                <Scroll />
-              </a>
+                <User2 />
+              </button>
             </li>
           </ul>
 
@@ -57,12 +65,12 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="mailto:alvindsouza2204@gmail.com"
+                <button
+                  onClick={openModal}
                   className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                 >
-                  <Mail />
-                </a>
+                  <User2 />
+                </button>
               </li>
               <li>
                 <a
@@ -74,6 +82,57 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
+
+          <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-black/25" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-lg font-medium leading-6 text-gray-900"
+                      >
+                        Select your Role
+                      </Dialog.Title>
+                      <div className="mt-2">
+                        <div className="grid grid-cols-2 gap-3">
+                            <button className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
+                                <Image src={stud} width={150} height={150} className="rounded-full mb-4" alt="Student"/>
+                                <p className="text-black">Student</p>
+                            </button>
+                            <div className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
+                                <Image src={teach} width={150} height={150} className="rounded-full mb-4" alt="Teacher"/>
+                                <p className="text-black">Teacher</p>
+                            </div>
+                        </div>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition>
         </div>
       </nav>
     </div>
