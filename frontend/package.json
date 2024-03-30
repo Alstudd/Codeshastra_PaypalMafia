@@ -37,6 +37,7 @@
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.10.0",
+    "ethers": "^6.11.1",
     "framer-motion": "^11.0.24",
     "keyword-extractor": "^0.0.28",
     "lucide-react": "^0.363.0",
