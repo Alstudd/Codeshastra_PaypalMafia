@@ -12,16 +12,17 @@ function IndexPopup() {
     })
   }, [])
 
-  const getData = async () => {
-    console.log(url)
-    const op = await YoutubeTranscript.fetchTranscript("rfscVS0vtbw")
-    console.log(op)
+  const addToLB = async () => {
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?([^\s&]+)/
+    const match = url.match(regex)
+    const code = match[1]
   }
 
   return (
-    <button className=" m-5" onClick={getData}>
+    <button className=" m-5" onClick={addToLB}>
       {" "}
-      Fetch{" "}
+      Add to LearnBlocks{" "}
     </button>
   )
 }
