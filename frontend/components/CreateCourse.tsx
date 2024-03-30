@@ -2,7 +2,6 @@
 import {
   ArrowLeft,
   ArrowRight,
-  FileBarChart2,
   MailCheck,
   Pencil,
   Plus,
