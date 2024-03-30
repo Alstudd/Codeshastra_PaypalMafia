@@ -7,6 +7,9 @@ import logo from "../public/LearnBlocksLogo.png";
 import stud from "../public/stud.png";
 import teach from "../public/teach.png";
 import Image from "next/image";
+import { getSession, signIn } from "next-auth/react";
+import { prisma } from "@/lib/db";
+import { getAuthSession } from "@/lib/nextauth";
 
 const Navbar = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -18,6 +21,15 @@ const Navbar = () => {
   function openModal() {
     setIsOpen(true);
   }
+
+  function studentLogin() {
+    signIn("google", { callbackUrl: "/student" });
+  }
+
+  function teacherLogin() {
+    signIn("google", { callbackUrl: "/teacher" });
+  }
+
   return (
     <div>
       <nav className="bg-black border-gray-200 ">
@@ -117,14 +129,14 @@ const Navbar = () => {
                       </Dialog.Title>
                       <div className="mt-2">
                         <div className="grid grid-cols-2 gap-3">
-                            <button className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
+                            <button onClick={studentLogin} className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
                                 <Image src={stud} width={150} height={150} className="rounded-full mb-4" alt="Student"/>
                                 <p className="text-black">Student</p>
                             </button>
-                            <div className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
+                            <button onClick={teacherLogin} className="flex flex-col text-center items-center rounded-lg hover:cursor-pointer">
                                 <Image src={teach} width={150} height={150} className="rounded-full mb-4" alt="Teacher"/>
                                 <p className="text-black">Teacher</p>
-                            </div>
+                            </button>
                         </div>
                       </div>
                     </Dialog.Panel>

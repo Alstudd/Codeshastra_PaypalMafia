@@ -23,9 +23,9 @@ const page = async (props: Props) => {
     return redirect("/")
   }
   return (
-    <div>
+    <div className=''>
       <Navbar />
-      <main className="p-8 mx-auto max-w-7xl">
+      <main className="mt-14 p-8 mx-auto max-w-7xl">
         <div className="flex items-center">
           <h2 className="mr-2 text-3xl font-bold tracking-tight">Dashboard</h2>
           <DetailsDialog />
