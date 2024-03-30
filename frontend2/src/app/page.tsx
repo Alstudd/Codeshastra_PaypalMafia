@@ -4,12 +4,17 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import CreateCourse from "./_components/CreateCourse";
+import { HeroParallaxDemo } from "./_components/HeroParallaxDemo";
+import Navbar from "./_components/Navbar";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
   return (
-    <CreateCourse />
+    <>
+    <Navbar/>
+    <HeroParallaxDemo />
+    </>
   );
 }

@@ -17,7 +17,7 @@ import { Dialog, Switch, Transition } from "@headlessui/react";
 import { redirect } from "next/navigation";
 // import { getSession } from "next-auth/react";
 // import { getServerAuthSession } from "~/server/auth";
-import { AddCourse } from "./AddCourse";
+import { AddCourse } from "./db/AddCourse";
 import { useAccount } from "wagmi";
 
 const CreateCourse = () => {
