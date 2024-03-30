@@ -19,7 +19,10 @@ def analyze_video():
 
   payload = {}
   headers = {
-    'Authorization': f'Bearer {access_token}'}
+    'Authorization': f'Bearer {access_token}'
+  }
+
+  response = requests.request("POST", url, headers=headers, data=payload)
 
 if __name__ == "__main__":
   app.run(debug=True)
