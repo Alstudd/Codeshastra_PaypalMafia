@@ -1,9 +1,10 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { AreaChart, Card, DonutChart, BarChart } from "@tremor/react";
 import { Filter, Sliders, SortAsc } from "lucide-react";
 
 const Dashboard = () => {
-  const colRef = collection(db, "issue");
+  // const colRef = collection(db, "issue");
   const [complaintArr, setComplaintArr] = useState([]);
   const [ration, setRation] = useState(null);
 
@@ -118,20 +119,20 @@ const Dashboard = () => {
     OthersSolved,
   } = countLoc(complaintArr);
 
-  useEffect(() => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        let issues = [];
-        snapshot.docs.forEach((doc) => {
-          issues.push({ ...doc.data(), id: doc.id });
-        });
-        setComplaintArr(issues);
-        // console.log(issues);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getDocs(colRef)
+  //     .then((snapshot) => {
+  //       let issues = [];
+  //       snapshot.docs.forEach((doc) => {
+  //         issues.push({ ...doc.data(), id: doc.id });
+  //       });
+  //       setComplaintArr(issues);
+  //       // console.log(issues);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // }, []);
 
   const categoryStat = [
     {
@@ -223,7 +224,7 @@ const Dashboard = () => {
           <div className="grid md:grid-cols-3 gap-3 mb-3 ">
             <Card className="mx-auto" decorationColor="indigo">
               <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-                Problems in Nallasopara Region
+                No. of Courses Created
               </p>
               <p className="text-3xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
                 {Nalla} / {Total}
@@ -231,7 +232,7 @@ const Dashboard = () => {
             </Card>
             <Card className="mx-auto" decorationColor="indigo">
               <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-                Problems in Malad Region
+                No. of Courses Bought
               </p>
               <p className="text-3xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
                 {Malad} / {Total}
@@ -239,7 +240,7 @@ const Dashboard = () => {
             </Card>
             <Card className="mx-auto" decorationColor="indigo">
               <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-                Problems in Andheri Region
+                No. of Completed Courses
               </p>
               <p className="text-3xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
                 {Andheri} / {Total}
@@ -283,7 +284,7 @@ const Dashboard = () => {
         <div className="grid gap-3">
           <Card className="mx-auto" decorationColor="indigo">
             <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-              Problem Solving Ratio
+              Course Completion Ratio
             </p>
             <p className="text-3xl mb-4 text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
               {ration}%

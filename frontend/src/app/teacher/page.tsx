@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/db';
 import { getAuthSession } from '@/lib/nextauth';
 import React from 'react'
+import Dashboard from '../../../components/Dash';
 
 type Props = {}
 
@@ -17,7 +18,9 @@ const page = async (props: Props) => {
         });
     }
     return (
-        <div>Teacher</div>
+        <div className='bg-blue-200'>
+            <Dashboard/>
+        </div>
     )
 }
 
