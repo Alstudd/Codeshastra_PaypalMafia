@@ -10,6 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import React, { useState } from "react";
+import { Switch } from "@headlessui/react";
 
 const CreateCourse = () => {
   const [toggletab, setToggletab] = useState(1);
@@ -35,6 +36,8 @@ const CreateCourse = () => {
       icon: ({ theme, type }) => <MailCheck className="text-[#bb86fc]" />,
     });
   };
+
+  const [enabled, setEnabled] = useState(false);
 
   const toggle = (i: number) => {
     setToggletab(i);
@@ -70,8 +73,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 1
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lb-pink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lb-pink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
+                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(1)}
@@ -83,8 +86,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 2
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lb-pink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lb-pink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
+                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(2)}
@@ -96,8 +99,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 3
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lb-pink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lb-pink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
+                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(3)}
@@ -109,49 +112,48 @@ const CreateCourse = () => {
       </div>
 
       <div className="grid gap-3 md:grid-cols-3">
-        <div className="col-span-2 rounded-md shadow-md">
-        {!status ? (
-              <label
-                htmlFor="dropzone-file"
-                className="dark:hover:bg-bray-800 my-2 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-600 bg-transparent hover:border-gray-500 hover:bg-gray-600"
-              >
-                <div className="flex flex-col items-center justify-center py-16">
-                  <UploadCloud />
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    MP4 (MAX. 1GB)
-                  </p>
-                </div>
-                <input
-                  onChange={fileChange}
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                />
-              </label>
-            ) : (
-                <Image
-                src="/Download.png"
-                height={500}
-                width={1000}
-                alt="certificate"
-                className="border-2 rounded-md border-white"
+        <div className="col-span-2 rounded-md">
+          {!status ? (
+            <label
+              htmlFor="dropzone-file"
+              className="dark:hover:bg-bray-800 my-2 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-600 bg-transparent hover:border-gray-500 hover:bg-gray-50"
+            >
+              <div className="flex flex-col items-center justify-center py-16">
+                <UploadCloud />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  MP4 (MAX. 1GB)
+                </p>
+              </div>
+              <input
+                onChange={fileChange}
+                id="dropzone-file"
+                type="file"
+                className="hidden"
               />
-            )}
-        
+            </label>
+          ) : (
+            <Image
+              src="/Download.png"
+              height={500}
+              width={1000}
+              alt="certificate"
+              className="border-2 rounded-md border-white"
+            />
+          )}
         </div>
         <div>
-          <h3 className="mb-3 text-2xl font-bold tracking-tight text-white">
+          <h3 className="mb-3 text-2xl font-bold tracking-tight text-black dark:text-white ">
             Enter Topic Details
           </h3>
-          <form>
+          <form onSubmit={submit}>
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-white"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
               >
                 Enter Chapter Name
               </label>
@@ -167,7 +169,7 @@ const CreateCourse = () => {
 
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-white"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
               >
                 Enter Chapter Desc
               </label>
@@ -179,6 +181,29 @@ const CreateCourse = () => {
                 onChange={(e) => setDesc(e.target.value)}
                 required
               />
+
+              <div className="flex gap-3">
+              <Switch
+                checked={enabled}
+                onChange={setEnabled}
+                className={`${enabled ? "bg-teal-900" : "bg-teal-700"}
+          relative inline-flex h-[28px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}
+              >
+                <span className="sr-only">Use setting</span>
+                <span
+                  aria-hidden="true"
+                  className={`${enabled ? "translate-x-5" : "translate-x-0"}
+            pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                />
+              </Switch>
+              <label
+                htmlFor="email"
+                className="block my-auto text-sm font-medium text-black dark:text-white"
+              >
+                Enable as Pro Content
+              </label>
+              </div>
+
 
               {/* <label
                 htmlFor="email"
@@ -197,7 +222,6 @@ const CreateCourse = () => {
               /> */}
             </div>
 
-            
             <button
               type="button"
               // onClick={submit}

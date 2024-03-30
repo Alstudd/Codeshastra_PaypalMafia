@@ -20,7 +20,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <nav className="bg-black opacity-90 border-gray-200 ">
+      <nav className="bg-black border-gray-200 ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="/"
@@ -28,7 +28,7 @@ const Navbar = () => {
           >
             <Image src={logo} height={30} width={30} alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-              Learn <span className="text-lb-pink">Blocks</span>
+              Learn <span className="text-lbpink">Blocks</span>
             </span>
           </a>
 
