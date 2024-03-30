@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
             });
             if (db_user) {
                 token.id = db_user.id;
-                token.role = db_user.role
+                token.role = db_user.role ?? ''; // Fix: Use optional chaining and provide default value
             }
             return token;
         },
