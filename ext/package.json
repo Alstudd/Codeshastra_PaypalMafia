@@ -10,7 +10,10 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@plasmohq/messaging": "^0.6.2",
+    "@plasmohq/storage": "^1.9.3",
     "autoprefixer": "^10.4.19",
+    "firebase": "^10.10.0",
     "plasmo": "0.85.2",
     "postcss": "^8.4.38",
     "react": "18.2.0",

@@ -1,14 +1,13 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -22,12 +21,12 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -37,18 +36,19 @@ model Session {
 
   @@map("sessions")
 }
- 
+
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?   @unique
+  email         String?         @unique
   emailVerified DateTime?
-  image    String?
-  role String?
-  accounts Account[]
-  sessions Session[]
-  games Game[]
+  image         String?
+  role          String?
+  accounts      Account[]
+  sessions      Session[]
+  games         Game[]
   // notes Note[]
+  Teachercourse Teachercourse[]
 
   @@map("users")
 }
@@ -70,13 +70,13 @@ enum GameType {
 
 model Game {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String    @db.ObjectId
+  userId      String     @db.ObjectId
   questions   Question[]
   timeStarted DateTime
   topic       String
   timeEnded   DateTime?
   gameType    GameType
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("games")
 }
@@ -91,7 +91,7 @@ model Question {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   question          String
   answer            String
-  gameId            String @db.ObjectId
+  gameId            String   @db.ObjectId
   options           Json? // for mcq questions
   percentageCorrect Float? // for open_ended questions
   isCorrect         Boolean? // for mcq questions
@@ -132,9 +132,9 @@ model Chapter {
   name               String
   youtubeSearchQuery String
   videoId            String?
-  summary            String?    // @db.Varchar(3000)
-  unit               Unit       @relation(fields: [unitId], references: [id])
-  quests          Quest[]
+  summary            String? // @db.Varchar(3000)
+  unit               Unit    @relation(fields: [unitId], references: [id])
+  quests             Quest[]
 
   @@map("chapters")
 }
@@ -151,15 +151,28 @@ model Quest {
   @@map("quests")
 }
 
-model Note {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  title    String
-  content  String?
-  userId   String // @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Teacherchap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  // user  User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String?
+  description     String?
+  time        DateTime?
+  summary         String?
+  Teachercourse   Teachercourse? @relation(fields: [teachercourseId], references: [id])
+  teachercourseId String?        @db.ObjectId
 
-  @@map("notes")
+  @@map("teacherchaps")
+}
+
+model Teachercourse {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String        @db.ObjectId
+  chapters    Teacherchap[]
+  title       String?
+  description String?
+  price       Int?
+  chapterCount Int?
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("teachercourses")
 }
