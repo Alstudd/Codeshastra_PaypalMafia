@@ -1,6 +1,6 @@
 import { Mail, Phone, Scroll } from "lucide-react";
 import React from "react";
-// import logo  from '../public/LearnBlocksLogo.png'
+import logo  from '../public/LearnBlocksLogo.png'
 import Image from "next/image";
 
 const Navbar = () => {
@@ -12,14 +12,19 @@ const Navbar = () => {
             href="/"
             className="flex items-center text-white space-x-3 rtl:space-x-reverse"
           >
-            <Image src='/public/LearnBlocksLogo.png' height={30} width={30} alt="logo"/>
+            <Image
+              src={logo}
+              height={30}
+              width={30}
+              alt="logo"
+            />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
               Learn <span className="text-lb-pink">Blocks</span>
             </span>
           </a>
 
           <ul className="flex bg-black flex-row md:hidden">
-          <li>
+            <li>
               <a
                 href="tel:9820257477"
                 className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
@@ -43,7 +48,7 @@ const Navbar = () => {
             id="navbar-default"
           >
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-900 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-black ">
-            <li>
+              <li>
                 <a
                   href="tel:9820257477"
                   className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
@@ -61,11 +66,10 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="AlvinDsouza_Resume.pdf"
-                  target="blank"
+                  href="/login"
                   className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
                 >
-                  <Scroll />
+                  SignUp / Login
                 </a>
               </li>
             </ul>
