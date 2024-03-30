@@ -9,7 +9,7 @@ export const config = createConfig(
 		chains: [sepolia],
 		transports: {
 			[sepolia.id]: http(
-				`https://eth-sepolia.g.alchemy.com/v2/epmRQeqj-86LNH5mnC1blApnysegqAuI`
+				`https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
 			),
 		},
 		walletConnectProjectId: "",
