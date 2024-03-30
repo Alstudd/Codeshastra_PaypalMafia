@@ -37,7 +37,7 @@ export default function Home() {
 		console.log(tx);
 	};
 
-	verify();
+	// verify();
 
 	const { setTheme } = useTheme();
 	setTheme("dark");
