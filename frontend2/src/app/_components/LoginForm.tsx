@@ -29,7 +29,7 @@ const Signin = () => {
       // sessionStorage.setItem("user", true);
       setEmail('');
       setPassword('');
-      router.push("/")
+      router.push("/create-course")
     } catch (err) {
       console.error(err);
     }
@@ -44,7 +44,7 @@ const Signin = () => {
       // sessionStorage.setItem("user", true);
       setEmail('');
       setPassword('');
-      router.push("/")
+      router.push("/create-course")
     } catch (err) {
       console.error(err);
     }
