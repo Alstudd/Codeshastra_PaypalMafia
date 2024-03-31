@@ -1,53 +1,78 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Link from "next/link";
 import { ArrowRight, Search, ShoppingCart } from "lucide-react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "lib/firebase";
 
 const CoursesGrp = () => {
-  const data = [
-    {
-      id: "nhbeahqrjb",
-      name: "Python Crash Course",
-      desc: "take the best of the courses from best ..",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg",
-      cost: "100",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-      cost: "200",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-      cost: "120",
-    },
-  ];
+
+  const [data, setData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const colRef = collection(db, "Course");
+                const snapshot = await getDocs(colRef);
+                let courses: any[] = [];
+                snapshot.forEach((doc) => {
+                    courses.push({ ...doc.data(), id: doc.id });
+                });
+                setData(courses);
+                console.log(courses);
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+  // const data = [
+  //   {
+  //     id: "nhbeahqrjb",
+  //     name: "Python Crash Course",
+  //     desc: "take the best of the courses from best ..",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg",
+  //     cost: "100",
+  //   },
+  //   {
+  //     id: "",
+  //     name: "",
+  //     desc: "",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
+  //     cost: "200",
+  //   },
+  //   {
+  //     id: "",
+  //     name: "",
+  //     desc: "",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
+  //     cost: "120",
+  //   },
+  //   {
+  //     id: "",
+  //     name: "",
+  //     desc: "",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
+  //     cost: "120",
+  //   },
+  //   {
+  //     id: "",
+  //     name: "",
+  //     desc: "",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg",
+  //     cost: "120",
+  //   },
+  //   {
+  //     id: "",
+  //     name: "",
+  //     desc: "",
+  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
+  //     cost: "120",
+  //   },
+  // ];
   return (
     <div>
       <Navbar />
@@ -104,7 +129,7 @@ const CoursesGrp = () => {
               <div>
                 <img
                   className="mx-auto group-hover:opacity-40 h-auto rounded-lg p-1"
-                  src={item.pic}
+                  src={item.url}
                   alt={item.name}
                 />
               </div>

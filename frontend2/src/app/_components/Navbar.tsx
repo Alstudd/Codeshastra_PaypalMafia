@@ -62,7 +62,7 @@ const Navbar = () => {
 								<User2 />
 							</button>
 						</li>
-						<li>
+						<li className="text-white">
 							<ConnectWalletButton />
 						</li>
 					</ul>
@@ -88,7 +88,7 @@ const Navbar = () => {
 									<User2 />
 								</button>
 							</li>
-							<li>
+							<li className="text-white">
 								<ConnectWalletButton />
 							</li>
 							<li>
