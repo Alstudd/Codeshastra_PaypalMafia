@@ -62,7 +62,7 @@ const CreateCourse = () => {
       icon: ({ theme, type }) => <MailCheck className="text-[#bb86fc]" />,
     });
     closeModal();
-  }
+  };
 
   const fetchData = async () => {
     try {
@@ -183,7 +183,7 @@ const CreateCourse = () => {
 
 
   return (
-    <div className="md:w-[80%] w-[95%] mx-auto">
+    <div className="mx-auto w-[95%] md:w-[80%]">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -196,10 +196,10 @@ const CreateCourse = () => {
         pauseOnHover
         theme="dark"
       />
-      <h1 className="font-bold text-xl mt-3 m-2">Course Creator</h1>
+      <h1 className="m-2 mt-3 text-xl font-bold">Course Creator</h1>
       <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
         <ul
-          className="flex flex-wrap -mb-px text-sm font-medium text-center"
+          className="-mb-px flex flex-wrap text-center text-sm font-medium"
           id="myTab"
           data-tabs-toggle="#myTabContent"
           role="tablist"
@@ -208,8 +208,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 1
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block rounded-t-lg border-b-2 border-lbpink p-4"
+                  : "inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-lbpink dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(1)}
@@ -221,8 +221,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 2
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block rounded-t-lg border-b-2 border-lbpink p-4"
+                  : "inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-lbpink dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(2)}
@@ -234,8 +234,8 @@ const CreateCourse = () => {
             <button
               className={
                 toggletab === 3
-                  ? "inline-block p-4 border-b-2 rounded-t-lg border-lbpink"
-                  : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-lbpink hover:border-gray-300 dark:hover:text-gray-300"
+                  ? "inline-block rounded-t-lg border-b-2 border-lbpink p-4"
+                  : "inline-block rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-lbpink dark:hover:text-gray-300"
               }
               type="button"
               onClick={() => toggle(3)}
@@ -250,22 +250,22 @@ const CreateCourse = () => {
         {/* <form
         onSubmit={handleSubmit}
         > */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Enter Course Name
-            </label>
-            <input
-              type="text"
-              id="Name"
-              className="bg-transparent border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="eg. Python in 3 Hrs"
-              value={cName}
-              onChange={(e) => setCName(e.target.value)}
-              required
-            />
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-black dark:text-white"
+          >
+            Enter Course Name
+          </label>
+          <input
+            type="text"
+            id="Name"
+            className="mb-5 block w-full rounded-lg border border-gray-300 bg-transparent p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            placeholder="eg. Python in 3 Hrs"
+            value={cName}
+            onChange={(e) => setCName(e.target.value)}
+            required
+          />
 
             <label
               htmlFor="email"
@@ -282,22 +282,22 @@ const CreateCourse = () => {
               required
             />
 
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-black"
-            >
-              Enter Course Price <span className="text-gray-600">(In ETH)</span>
-            </label>
-            <input
-              type="text"
-              id="Name"
-              className="bg-transparent border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="eg. 5"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </div>
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-black"
+          >
+            Enter Course Price <span className="text-gray-600">(In ETH)</span>
+          </label>
+          <input
+            type="text"
+            id="Name"
+            className="block w-full rounded-lg border border-gray-300 bg-transparent p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            placeholder="eg. 5"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
 
           <button
             type="button"
@@ -319,10 +319,10 @@ const CreateCourse = () => {
                   <p className="text-gray-400">{values.desc}</p>
                 </div>
                 <div className="my-auto flex flex-row gap-3 text-black">
-                  <a href={values.id} className="bg-gray-100 rounded-md p-2">
+                  <a href={values.id} className="rounded-md bg-gray-100 p-2">
                     <Pencil />
                   </a>
-                  <a className="bg-gray-100 rounded-md p-2">
+                  <a className="rounded-md bg-gray-100 p-2">
                     <Trash />
                   </a>
                 </div>
@@ -335,18 +335,18 @@ const CreateCourse = () => {
           <button
             type="button"
             onClick={openModal}
-            className="inline-flex my-5 items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
+            className="my-5 inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
           >
             <Plus size={22} />
             Add Chapter
           </button>
         </div>
 
-        <div className="flex gap-3 justify-end border-t border-gray-600 mt-16">
+        <div className="mt-16 flex justify-end gap-3 border-t border-gray-600">
           <button
             type="button"
             onClick={() => toggle(1)}
-            className="inline-flex my-2 items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
+            className="my-2 inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
           >
             <ArrowLeft size={22} />
             Previous Step
@@ -355,7 +355,7 @@ const CreateCourse = () => {
           <button
             type="button"
             onClick={() => toggle(3)}
-            className="inline-flex my-2 items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
+            className="my-2 inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:focus:ring-gray-500 "
           >
             <ArrowRight size={22} />
             Next Step
@@ -364,7 +364,9 @@ const CreateCourse = () => {
       </div>
 
       <div className={toggletab === 3 ? "block" : "hidden"}>
-        <h1 className="font-bold text-black text-xl mt-3 m-2">Preview Course</h1>
+        <h1 className="m-2 mt-3 text-xl font-bold text-black">
+          Preview Course
+        </h1>
         <div className="grid gap-7 text-black md:grid-cols-3">
           <div className="rounded-md">
             {/* <Image
@@ -383,15 +385,15 @@ const CreateCourse = () => {
             <h3 className="mb-3 tracking-tight text-md text-black ">
               {cDesc}
             </h3>
-            <div className="flex my-2 mb-4 gap-3">
-              <div className="my-auto flex flex-row gap-3 py-1 px-4 rounded-full border border-gray-600 text-black">
-                <p className="text-gray-400 text-xs my-auto">
+            <div className="my-2 mb-4 flex gap-3">
+              <div className="my-auto flex flex-row gap-3 rounded-full border border-gray-600 px-4 py-1 text-black">
+                <p className="my-auto text-xs text-gray-400">
                   Time to complete :
                 </p>
-                <p className="text-gray-400 text-sm">2:04:00</p>
+                <p className="text-sm text-gray-400">2:04:00</p>
               </div>
-              <div className="my-auto flex flex-row gap-3 py-1 px-4 rounded-full border border-gray-600 text-black">
-                <p className="text-gray-400 text-xs my-auto">
+              <div className="my-auto flex flex-row gap-3 rounded-full border border-gray-600 px-4 py-1 text-black">
+                <p className="my-auto text-xs text-gray-400">
                   No of Chapters :
                 </p>
                 <p className="text-gray-400 text-sm">{chapArr.length}</p>
@@ -498,7 +500,7 @@ const CreateCourse = () => {
                             <input
                               type="text"
                               id="Name"
-                              className="bg-transparent border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                              className="mb-5 block w-full rounded-lg border border-gray-300 bg-transparent p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                               placeholder="eg. Python in 3 Hrs"
                               value={chpName}
                               onChange={(e) => setChpName(e.target.value)}
@@ -514,7 +516,7 @@ const CreateCourse = () => {
                             <textarea
                               id="Name"
                               rows={3}
-                              className="bg-transparent border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                              className="mb-5 block w-full rounded-lg border border-gray-300 bg-transparent p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                               value={chpDesc}
                               onChange={(e) => setChpDesc(e.target.value)}
                               required

@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 import json
 import time
+from youtube_transcript_api import YouTubeTranscriptApi
 
 # Replace with your Video Indexer account information
 account_id = "0de48224-0fc7-4144-a8b1-26adcf7374b4"
@@ -53,6 +54,13 @@ def analyze_video():
   print(response.text)
   id  = json.loads(response.text)['id']
   return getVideoOutput(id)
+
+@app.route("/yt_process", methods=["POST"])
+def ytProcess():
+  code = request.json.get("code")
+  transcript = YouTubeTranscriptApi.get_transcript(code)
+  content = " ".join([ct["text"] for ct in transcript])
+  return content
 
 if __name__ == "__main__":
   app.run(debug=True)
