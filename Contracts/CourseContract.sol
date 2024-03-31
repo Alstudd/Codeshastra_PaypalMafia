@@ -12,6 +12,7 @@ contract CourseMarketplace {
     constructor() {
         owner = msg.sender; // Set the deployer address as the owner
     }
+
     struct Course {
         address payable instructor; // Declare instructor as payable
         string title;
@@ -28,6 +29,8 @@ contract CourseMarketplace {
     mapping(uint256 => Course) public courses;
     mapping(uint256 => mapping(address => bool)) public purchasedCourses;
 
+    mapping(uint256 => uint256) public extraAmount; // Mapping to store extra amount for each course
+
     event CourseCreated(
         address indexed instructor,
         uint256 courseId,
@@ -41,6 +44,7 @@ contract CourseMarketplace {
         uint256 amountPaid
     );
     event CourseCompleted(address indexed student, uint256 courseId);
+    event ExtraAmountWithdrawn(address indexed owner, uint256 amount);
 
     uint256 public nextCourseId = 1; // Track the next available course ID
 
@@ -55,7 +59,7 @@ contract CourseMarketplace {
         return studentInfo[msg.sender].count;
     }
 
-    function getCourseOfStudent(uint256 _index) public view returns (uint256){
+    function getCourseOfStudent(uint256 _index) public view returns (uint256) {
         return studentInfo[msg.sender].enrolledIn[_index];
     }
 
@@ -65,8 +69,13 @@ contract CourseMarketplace {
         require(msg.value >= course.price, "Insufficient funds");
         require(!purchasedCourses[_courseId][msg.sender], "Course already purchased");
 
-        // Transfer payment to instructor
-        pay(course.instructor, msg.value);
+        uint256 extra = course.price / 10; // Calculate 10% of course price as extra amount
+
+        // Transfer course price to instructor
+        pay(course.instructor, course.price);
+
+        // Store extra amount in contract balance
+        extraAmount[_courseId] += extra;
 
         // Update purchasedCourses mapping and studentInfo
         purchasedCourses[_courseId][msg.sender] = true;
@@ -77,7 +86,7 @@ contract CourseMarketplace {
             msg.sender,
             _courseId,
             course.instructor,
-            msg.value
+            course.price // Report only the course price paid
         );
     }
 
@@ -86,16 +95,23 @@ contract CourseMarketplace {
     }
 
     function completeCourse(uint256 _courseId, address _student) public onlyOwner {
-    require(purchasedCourses[_courseId][_student], "Course not purchased by the specified student");
-    emit CourseCompleted(_student, _courseId);
-}
+        require(purchasedCourses[_courseId][_student], "Course not purchased by the specified student");
+        emit CourseCompleted(_student, _courseId);
+    }
 
-    // function completeCourse(uint256 _courseId) public onlyOwner {
-    //     require(purchasedCourses[_courseId][msg.sender], "Course not purchased");
-    //     require(!completedCourses[_courseId][msg.sender], "Course already completed"); // Check if the course has already been completed by the student
-    //     completedCourses[_courseId][msg.sender] = true; // Mark the course as completed
-    //     emit CourseCompleted(msg.sender, _courseId);
-    // }
+    function withdrawExtraAmount() public onlyOwner {
+        uint256 totalExtra = 0;
+
+        for (uint256 i = 1; i < nextCourseId; i++) {
+            totalExtra += extraAmount[i];
+            extraAmount[i] = 0; // Clear extra amount after withdrawal
+        }
+
+        require(totalExtra > 0, "No extra amount available for withdrawal");
+
+        payable(owner).transfer(totalExtra); // Transfer extra amount to owner
+        emit ExtraAmountWithdrawn(owner, totalExtra);
+    }
 
     function verifyCoursePurchase(uint256 _courseId, address _student) public view returns (bool) {
         return purchasedCourses[_courseId][_student];
