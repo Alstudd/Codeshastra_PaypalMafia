@@ -28,51 +28,6 @@ const CoursesGrp = () => {
 
         fetchData();
     }, []);
-
-  // const data = [
-  //   {
-  //     id: "nhbeahqrjb",
-  //     name: "Python Crash Course",
-  //     desc: "take the best of the courses from best ..",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg",
-  //     cost: "100",
-  //   },
-  //   {
-  //     id: "",
-  //     name: "",
-  //     desc: "",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-  //     cost: "200",
-  //   },
-  //   {
-  //     id: "",
-  //     name: "",
-  //     desc: "",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-  //     cost: "120",
-  //   },
-  //   {
-  //     id: "",
-  //     name: "",
-  //     desc: "",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-  //     cost: "120",
-  //   },
-  //   {
-  //     id: "",
-  //     name: "",
-  //     desc: "",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg",
-  //     cost: "120",
-  //   },
-  //   {
-  //     id: "",
-  //     name: "",
-  //     desc: "",
-  //     pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-  //     cost: "120",
-  //   },
-  // ];
   return (
     <div>
       <Navbar />
@@ -127,13 +82,12 @@ const CoursesGrp = () => {
               className="group relative w-full max-w-sm rounded-lg bg-white shadow dark:border-gray-700 dark:bg-gray-800"
             >
               <div>
-                <img
-                  className="mx-auto group-hover:opacity-40 h-auto rounded-lg p-1"
+                <embed
+                  className="w-full group-hover:opacity-40 h-full rounded-lg p-1"
                   src={item.url}
-                  alt={item.name}
                 />
               </div>
-             <span className="absolute text-white bg-yellow-500 rounded-l-lg rounded-t-none p-2 px-4 right-1 top-1 text-sm">₹{item.cost}</span>
+             <span className="absolute text-white bg-yellow-500 rounded-l-lg rounded-t-none p-2 px-4 right-1 top-1 text-sm">₹{item.price}</span>
               <div className="absolute group-hover:opacity-100 w-full bottom-1">
                 <div className="px-5 w-full">
                   <div>

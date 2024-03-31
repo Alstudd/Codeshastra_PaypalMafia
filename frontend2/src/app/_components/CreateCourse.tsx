@@ -17,15 +17,22 @@ import { Dialog, Switch, Transition } from "@headlessui/react";
 import { redirect } from "next/navigation";
 import { useAccount } from "wagmi";
 import { getServerAuthSession } from "~/server/auth";
-import { addDoc, collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "lib/firebase";
-import axios from 'axios'
-import {createCourse as utilCreateCourse} from '../../../Web3/utils'
+import axios from "axios";
+import { createCourse as utilCreateCourse } from "../../../Web3/utils";
 
 const CreateCourse = () => {
   // const { address, isConnecting, isDisconnected } = useAccount();
   // console.log(address)
-  const [sessionValue, setSessionValue] = useState<string | null>(null)
+  const [sessionValue, setSessionValue] = useState<string | null>(null);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -34,14 +41,16 @@ const CreateCourse = () => {
       theme: "dark",
     });
 
-    const res = await utilCreateCourse(cName, price)
-    console.log(res)
+    const res = await utilCreateCourse(cName, price);
+    console.log(res);
 
     try {
-      const docRef = collection(db, "Course", sessionStorage.getItem("myId")); // Assuming "courses" is the name of your Firestore collection
-      const wait = await updateDoc(docRef, {
-        courseId: res
-      }, { merge: true });
+      const courseId = sessionStorage.getItem("myId");
+      const newRef = doc(db, "Course", courseId);
+      await updateDoc(newRef, {
+        CID: res
+      });
+      sessionStorage.clear();
       alert("Course created successfully");
       toggle(2);
     } catch (error) {
@@ -71,7 +80,7 @@ const CreateCourse = () => {
       const snapshot = await getDocs(colRef);
       let course: any[] = []; // Initialize course as an empty array
       snapshot.docs.forEach((doc) => {
-          course.push({ ...doc.data(), id: doc.id });
+        course.push({ ...doc.data(), id: doc.id });
       });
       setChapArr(course);
       console.log(course);
@@ -82,10 +91,8 @@ const CreateCourse = () => {
   };
 
   useEffect(() => {
-
     fetchData();
-}, []);
-
+  }, []);
 
   function closeModal() {
     setIsOpen(false);
@@ -101,45 +108,45 @@ const CreateCourse = () => {
   const [cDesc, setCDesc] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState(false);
-  const [fileUrl, setFileUrl] = useState()
+  const [fileUrl, setFileUrl] = useState();
   const [enabled, setEnabled] = useState(false);
-  const [frameSrc, setFrameSrc] = useState()
-  const [chapArr, setChapArr]= useState([]);
+  const [frameSrc, setFrameSrc] = useState();
+  const [chapArr, setChapArr] = useState([]);
 
   const toggle = (i: number) => {
     setToggletab(i);
   };
 
   const fileChange = async (event: any) => {
-      const formData = new FormData();
-      formData.append("file", event.target.files[0]);
-      const file = event.target.files[0]
-      const video = document.createElement('video');
-      video.preload = 'metadata';
-      video.onloadedmetadata = async () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    const file = event.target.files[0];
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.onloadedmetadata = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Convert canvas to data URL and set as frame src
-        setFrameSrc(canvas.toDataURL());
-      };
-  
-      try {
-        const response = await axios.post("/api/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        setFileUrl(response.data.url)
-        console.log("Video uploaded successfully:", response.data);
-        setStatus(true);
-      } catch (error) {
-        console.error("Error uploading video:", error);
-      }
+      // Convert canvas to data URL and set as frame src
+      setFrameSrc(canvas.toDataURL());
+    };
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFileUrl(response.data.url);
+      console.log("Video uploaded successfully:", response.data);
+      setStatus(true);
+    } catch (error) {
+      console.error("Error uploading video:", error);
+    }
   };
 
   const createCourse = async (e: any) => {
@@ -151,7 +158,7 @@ const CreateCourse = () => {
         desc: cDesc,
         price: price,
       });
-      sessionStorage.setItem("myId", wait.id)
+      sessionStorage.setItem("myId", wait.id);
       alert("Course created successfully");
       toggle(2);
     } catch (error) {
@@ -159,28 +166,32 @@ const CreateCourse = () => {
       console.error(error);
     }
   };
-  
 
   const createChapter = async (e: any) => {
     e.preventDefault();
     try {
-        const courseId = sessionStorage.getItem("myId");
-        const docRef = collection(db, "Course", courseId, "Chapter");
-        await addDoc(docRef, {
-            name: chpName,
-            desc: chpDesc,
-            pro: enabled,
-            url: fileUrl ? fileUrl : '',
-        });
-        alert("Chapter created successfully");
-        await fetchData()
-        closeModal();
-    } catch (error) {
-        alert("Failed to create chapter");
-        console.error(error);
-    }
-};
+      const courseId = sessionStorage.getItem("myId");
+      const docRef = collection(db, "Course", courseId, "Chapter");
+      await addDoc(docRef, {
+        name: chpName,
+        desc: chpDesc,
+        pro: enabled,
+        url: fileUrl ? fileUrl : "",
+      });
 
+      const newRef = doc(db, "Course", courseId);
+      await updateDoc(newRef, {
+        url: fileUrl ? fileUrl : "",
+      });
+
+      alert("Chapter created successfully");
+      await fetchData();
+      closeModal();
+    } catch (error) {
+      alert("Failed to create chapter");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="mx-auto w-[95%] md:w-[80%]">
@@ -267,20 +278,20 @@ const CreateCourse = () => {
             required
           />
 
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Enter Course Desc
-            </label>
-            <textarea
-              id="Name"
-              rows={3}
-              className="bg-transparent border mb-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={cDesc}
-              onChange={(e) => setCDesc(e.target.value)}
-              required
-            />
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-black dark:text-white"
+          >
+            Enter Course Desc
+          </label>
+          <textarea
+            id="Name"
+            rows={3}
+            className="mb-5 block w-full rounded-lg border border-gray-300 bg-transparent p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            value={cDesc}
+            onChange={(e) => setCDesc(e.target.value)}
+            required
+          />
 
           <label
             htmlFor="email"
@@ -299,21 +310,21 @@ const CreateCourse = () => {
           />
         </div>
 
-          <button
-            type="button"
-            onClick={createCourse}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none "
-          >
-            <ArrowRight size={22} /> Next Step
-          </button>
+        <button
+          type="button"
+          onClick={createCourse}
+          className="inline-flex items-center gap-2 rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lbpink/90 focus:outline-none "
+        >
+          <ArrowRight size={22} /> Next Step
+        </button>
         {/* </form> */}
       </div>
 
       <div className={toggletab === 2 ? "block" : "hidden"}>
         {chapArr?.map((values, i) => {
           return (
-            <div key={i} className="border my-2 border-gray-600 rounded-lg">
-              <div className="p-4 px-5 flex flex-row justify-between">
+            <div key={i} className="my-2 rounded-lg border border-gray-600">
+              <div className="flex flex-row justify-between p-4 px-5">
                 <div className="my-auto">
                   {values.name}
                   <p className="text-gray-400">{values.desc}</p>
@@ -376,15 +387,17 @@ const CreateCourse = () => {
               alt="certificate"
               className="border-2 rounded-md border-white"
             /> */}
-            <embed className="rounded-2xl w-full h-full p-4" src={fileUrl} type="" />
+            <embed
+              className="h-full w-full rounded-2xl p-4"
+              src={fileUrl}
+              type=""
+            />
           </div>
           <div className="col-span-2">
             <h3 className="mb-1 text-2xl font-bold tracking-tight text-black ">
               {cName}
             </h3>
-            <h3 className="mb-3 tracking-tight text-md text-black ">
-              {cDesc}
-            </h3>
+            <h3 className="text-md mb-3 tracking-tight text-black ">{cDesc}</h3>
             <div className="my-2 mb-4 flex gap-3">
               <div className="my-auto flex flex-row gap-3 rounded-full border border-gray-600 px-4 py-1 text-black">
                 <p className="my-auto text-xs text-gray-400">
@@ -396,12 +409,12 @@ const CreateCourse = () => {
                 <p className="my-auto text-xs text-gray-400">
                   No of Chapters :
                 </p>
-                <p className="text-gray-400 text-sm">{chapArr.length}</p>
+                <p className="text-sm text-gray-400">{chapArr.length}</p>
               </div>
             </div>
 
             <div className="flex justify-between border-t border-gray-600 pt-2">
-              <h3 className="ml-3 mb-3 my-auto text-3xl font-bold tracking-tight text-black ">
+              <h3 className="my-auto mb-3 ml-3 text-3xl font-bold tracking-tight text-black ">
                 {price}
               </h3>
               <button
@@ -441,10 +454,8 @@ const CreateCourse = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-[80%] text-black transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
+                <Dialog.Panel className="w-[80%] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle text-black shadow-xl transition-all">
+                  <Dialog.Title className="text-lg font-medium leading-6 text-gray-900">
                     Add Your Chapter Content
                   </Dialog.Title>
                   <div className="mt-2">
@@ -482,7 +493,11 @@ const CreateCourse = () => {
                           //   alt="certificate"
                           //   className="border-2 rounded-md border-white"
                           // />
-                          <embed className="rounded-2xl w-full h-full p-4 " src={fileUrl} type="" />
+                          <embed
+                            className="h-full w-full rounded-2xl p-4 "
+                            src={fileUrl}
+                            type=""
+                          />
                         )}
                       </div>
                       <div>
@@ -493,7 +508,7 @@ const CreateCourse = () => {
                           <div className="mb-4">
                             <label
                               htmlFor="email"
-                              className="block mb-2 text-sm font-medium text-black"
+                              className="mb-2 block text-sm font-medium text-black"
                             >
                               Enter Chapter Name
                             </label>
@@ -509,7 +524,7 @@ const CreateCourse = () => {
 
                             <label
                               htmlFor="email"
-                              className="block mb-2 text-sm font-medium text-black"
+                              className="mb-2 block text-sm font-medium text-black"
                             >
                               Enter Chapter Desc
                             </label>
@@ -538,7 +553,7 @@ const CreateCourse = () => {
                               </Switch>
                               <label
                                 htmlFor="email"
-                                className="block my-auto text-sm font-medium text-black"
+                                className="my-auto block text-sm font-medium text-black"
                               >
                                 Enable as Pro Content
                               </label>

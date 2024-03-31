@@ -1,7 +1,6 @@
 import { ethers, BrowserProvider, Contract } from "ethers";
 import { ABI } from "./ABI/ABI";
 
-declare var window: any;
 
 const getContractInstance = async () => {
 	const provider = new BrowserProvider(window.ethereum);
@@ -21,6 +20,7 @@ export const buyCourse = async (courseFee, courseId) => {
 	};
 	const contractInstanceBuy = await getContractInstance();
 	const tx = await contractInstanceBuy.buyCourse(courseId, options);
+	return tx
 };
 
 export const createCourse = async (title, price) => {
