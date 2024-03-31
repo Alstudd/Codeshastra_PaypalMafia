@@ -121,15 +121,19 @@ const CreateCourse = () => {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
     const file = event.target.files[0];
-    const reader = new FileReader();
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.onloadedmetadata = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-    reader.onload = ()=>{
-      setFrameSrc(reader.result)
-    }
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    if(file){
-      reader.readAsDataURL(file)
-    }
+      // Convert canvas to data URL and set as frame src
+      setFrameSrc(canvas.toDataURL());
+    };
 
     try {
       const response = await axios.post("/api/upload", formData, {
