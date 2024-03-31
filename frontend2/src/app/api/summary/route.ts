@@ -45,10 +45,17 @@ export async function POST(req: Request, res: Response) {
       { summary: "summary of the transcript" }
     );
 
-    // const questions = await getQuestionsFromTranscript(
-    //   transcript,
-    //   chapter.name
-    // );
+    const { title }: { title: string } = await strict_output(
+      "You are an AI capable of giving a suitable title for a summarized youtube transcript",
+      "Give a title in 3 words or less.\n" +
+        summary,
+      { title: "title of the summary" }
+    );
+
+    const questions = await getQuestionsFromTranscript(
+      transcript,
+      title
+    );
 
     // await prisma.quest.createMany({
     //   data: questions.map((question) => {
@@ -76,7 +83,7 @@ export async function POST(req: Request, res: Response) {
     //   },
     // });
 
-    return NextResponse.json({ summary: summary });
+    return NextResponse.json({ summary: summary, title: title, questions: questions });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
