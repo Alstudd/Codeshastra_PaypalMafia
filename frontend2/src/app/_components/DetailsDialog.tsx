@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "../_components/ui/dialog";
 import { Github, HelpCircle, Instagram } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";

@@ -25,6 +25,7 @@ export async function POST(req: Request) {
 	const fileData = await file.arrayBuffer();
 	const uploadResponse = await blockBlobClient.uploadData(fileData, options);
 
+
 	return Response.json({
 		url: `https://mafiahackstorage.blob.core.windows.net/learnblocks/${encodeURI(
 			fileName

@@ -1,53 +1,33 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Link from "next/link";
 import { ArrowRight, Search, ShoppingCart } from "lucide-react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "lib/firebase";
 
 const CoursesGrp = () => {
-  const data = [
-    {
-      id: "nhbeahqrjb",
-      name: "Python Crash Course",
-      desc: "take the best of the courses from best ..",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg",
-      cost: "100",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-      cost: "200",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg",
-      cost: "120",
-    },
-    {
-      id: "",
-      name: "",
-      desc: "",
-      pic: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-      cost: "120",
-    },
-  ];
+
+  const [data, setData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const colRef = collection(db, "Course");
+                const snapshot = await getDocs(colRef);
+                let courses: any[] = [];
+                snapshot.forEach((doc) => {
+                    courses.push({ ...doc.data(), id: doc.id });
+                });
+                setData(courses);
+                console.log(courses);
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+
+        fetchData();
+    }, []);
   return (
     <div>
       <Navbar />
@@ -102,13 +82,12 @@ const CoursesGrp = () => {
               className="group relative w-full max-w-sm rounded-lg bg-white shadow dark:border-gray-700 dark:bg-gray-800"
             >
               <div>
-                <img
-                  className="mx-auto group-hover:opacity-40 h-auto rounded-lg p-1"
-                  src={item.pic}
-                  alt={item.name}
+                <embed
+                  className="w-full group-hover:opacity-40 h-full rounded-lg p-1"
+                  src={item.url}
                 />
               </div>
-             <span className="absolute text-white bg-yellow-500 rounded-l-lg rounded-t-none p-2 px-4 right-1 top-1 text-sm">₹{item.cost}</span>
+             <span className="absolute text-white bg-yellow-500 rounded-l-lg rounded-t-none p-2 px-4 right-1 top-1 text-sm">₹{item.price}</span>
               <div className="absolute group-hover:opacity-100 w-full bottom-1">
                 <div className="px-5 w-full">
                   <div>
