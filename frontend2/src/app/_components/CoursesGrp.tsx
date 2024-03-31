@@ -88,7 +88,7 @@ const CoursesGrp = () => {
                 />
               </div>
              <span className="absolute text-white bg-yellow-500 rounded-l-lg rounded-t-none p-2 px-4 right-1 top-1 text-sm">₹{item.price}</span>
-              <div className="absolute group-hover:opacity-100 w-full bottom-1">
+              <div className="w-full bottom-1">
                 <div className="px-5 w-full">
                   <div>
                     {/* <h5 className="flex flex-col text-lg font-semibold tracking-tight group-hover:text-white text-gray-900">
@@ -97,7 +97,7 @@ const CoursesGrp = () => {
                     </h5> */}
                   </div>
                   <div className="mb-5 mt-1 flex items-center justify-between">
-                  <h5 className="flex flex-col text-lg font-semibold tracking-tight group-hover:text-white text-gray-900">
+                  <h5 className="flex flex-col text-lg font-semibold tracking-tight text-gray-900">
                       {item.name}
                       <span className="text-sm">{item.desc}</span>
                     </h5>

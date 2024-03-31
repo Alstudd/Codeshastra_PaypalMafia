@@ -1,5 +1,5 @@
 "use client";
-import { Mail, Phone, Scroll, User2 } from "lucide-react";
+import { BookMarked, Mail, Phone, Scroll, User2 } from "lucide-react";
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
@@ -53,10 +53,10 @@ const Navbar = () => {
 					<ul className="flex bg-black flex-row md:hidden">
 						<li>
 							<a
-								href="tel:9820257477"
+								href="/create-course"
 								className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
 							>
-								<Phone />
+								<BookMarked />
 							</a>
 						</li>
 						<li>
@@ -79,10 +79,10 @@ const Navbar = () => {
 						<ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-900 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-black ">
 							<li>
 								<a
-									href="tel:9820257477"
+									href="/create-course"
 									className="block py-2 px-3 text-gray-100 rounded hover:bg-gray-400 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
 								>
-									<Phone />
+									<BookMarked />
 								</a>
 							</li>
 							<li>
