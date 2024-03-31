@@ -259,7 +259,7 @@ const CreateCourse = () => {
 
           <label
             htmlFor="email"
-            className="mb-2 block text-sm font-medium text-white"
+            className="mb-2 block text-sm font-medium text-black"
           >
             Enter Course Price <span className="text-gray-600">(In ETH)</span>
           </label>
@@ -339,8 +339,10 @@ const CreateCourse = () => {
       </div>
 
       <div className={toggletab === 3 ? "block" : "hidden"}>
-        <h1 className="m-2 mt-3 text-xl font-bold">Preview Course</h1>
-        <div className="grid gap-7 md:grid-cols-3">
+        <h1 className="m-2 mt-3 text-xl font-bold text-black">
+          Preview Course
+        </h1>
+        <div className="grid gap-7 text-black md:grid-cols-3">
           <div className="rounded-md">
             <Image
               src="/Download.png"
@@ -351,10 +353,10 @@ const CreateCourse = () => {
             />
           </div>
           <div className="col-span-2">
-            <h3 className="mb-1 text-2xl font-bold tracking-tight text-white ">
+            <h3 className="mb-1 text-2xl font-bold tracking-tight text-black ">
               Course Name
             </h3>
-            <h3 className="text-md mb-3 tracking-tight text-white ">
+            <h3 className="text-md mb-3 tracking-tight text-black ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptate, reprehenderit! Deleniti, vitae dignissimos cumque illum
               et nemo alias quia culpa ad asperiores saepe ducimus iste modi
@@ -376,7 +378,7 @@ const CreateCourse = () => {
             </div>
 
             <div className="flex justify-between border-t border-gray-600 pt-2">
-              <h3 className="my-auto mb-3 ml-3 text-3xl font-bold tracking-tight text-white ">
+              <h3 className="my-auto mb-3 ml-3 text-3xl font-bold tracking-tight text-black ">
                 10 ETH
               </h3>
               <button

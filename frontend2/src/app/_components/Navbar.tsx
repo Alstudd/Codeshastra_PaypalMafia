@@ -3,11 +3,13 @@ import { Mail, Phone, Scroll, User2 } from "lucide-react";
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import logo from "../../../public/LearnBlocksLogo.png";
-import stud from "../../../public/stud.png";
-import teach from "../../../public/teach.png";
+import logo from "../public/LearnBlocksLogo.png";
+import stud from "../public/stud.png";
+import teach from "../public/teach.png";
 import Image from "next/image";
 import { getSession, signIn } from "next-auth/react";
+import { db } from "~/server/db";
+import { getServerAuthSession } from "~/server/auth";
 import { ConnectWalletButton } from "./ConnectWalletButton";
 
 const Navbar = () => {
@@ -21,6 +23,14 @@ const Navbar = () => {
     setIsOpen(true);
   }
 
+  function studentLogin() {
+    signIn("google", { callbackUrl: "/student" });
+  }
+
+  function teacherLogin() {
+    signIn("google", { callbackUrl: "/teacher" });
+  }
+
   return (
     <div>
       <nav className="border-gray-200 bg-black ">
@@ -29,7 +39,12 @@ const Navbar = () => {
             href="/"
             className="flex items-center space-x-3 text-white rtl:space-x-reverse"
           >
-            <Image src={logo} height={30} width={30} alt="logo" />
+            <Image
+              src="/LearnBlocksLogo.png"
+              height={30}
+              width={30}
+              alt="logo"
+            />
             <span className="self-center whitespace-nowrap text-2xl font-semibold text-white">
               Learn <span className="text-lbpink">Blocks</span>
             </span>
@@ -52,7 +67,7 @@ const Navbar = () => {
                 <User2 />
               </button>
             </li>
-            <li className="text-white">
+            <li>
               <ConnectWalletButton />
             </li>
           </ul>
@@ -78,7 +93,7 @@ const Navbar = () => {
                   <User2 />
                 </button>
               </li>
-              <li className="text-white">
+              <li>
                 <ConnectWalletButton />
               </li>
               <li>
@@ -126,9 +141,12 @@ const Navbar = () => {
                       </Dialog.Title>
                       <div className="mt-2">
                         <div className="grid grid-cols-2 gap-3">
-                          <button className="flex flex-col items-center rounded-lg text-center hover:cursor-pointer">
+                          <button
+                            onClick={studentLogin}
+                            className="flex flex-col items-center rounded-lg text-center hover:cursor-pointer"
+                          >
                             <Image
-                              src={stud}
+                              src="/stud.png"
                               width={150}
                               height={150}
                               className="mb-4 rounded-full"
@@ -136,9 +154,12 @@ const Navbar = () => {
                             />
                             <p className="text-black">Student</p>
                           </button>
-                          <button className="flex flex-col items-center rounded-lg text-center hover:cursor-pointer">
+                          <button
+                            onClick={teacherLogin}
+                            className="flex flex-col items-center rounded-lg text-center hover:cursor-pointer"
+                          >
                             <Image
-                              src={teach}
+                              src="/teach.png"
                               width={150}
                               height={150}
                               className="mb-4 rounded-full"

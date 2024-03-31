@@ -10,26 +10,26 @@ export const products = [
     title: "Questify",
     link: "https://questify-ai.vercel.app",
     thumbnail:
-      "https://devfolio.co/_next/image?url=https%3A%2F%2Fassets.devfolio.co%2Fhackathons%2Fd918ed41893d49d3975dcfb56c91207d%2Fprojects%2F8f45173fa096435b9fce4a439d1401df%2Fb5e5141d-f32f-46a7-b7c0-4efc72078629.png&w=1440&q=75",
+      "https://images.pexels.com/photos/4491461/pexels-photo-4491461.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Tree Tally",
     link: "https://tree-tally.vercel.app",
     thumbnail:
-      "/treetally-web.png",
+      "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Optipick",
     link: "/",
     thumbnail:
-      "/optipick-web.png",
+      "https://images.pexels.com/photos/4348401/pexels-photo-4348401.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
 
   {
     title: "Alphamatics",
     link: "https://alphamatics.in",
     thumbnail:
-      "/alphamatics-web.png",
+      "https://images.pexels.com/photos/5553938/pexels-photo-5553938.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Not Used",
@@ -41,32 +41,32 @@ export const products = [
     title: "Polydine",
     link: "/",
     thumbnail:
-      "https://tietans.tech/img/polydine.jpeg",
+      "https://images.pexels.com/photos/5553632/pexels-photo-5553632.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
 
   {
     title: "Public Square",
     link: "/",
     thumbnail:
-      "/publicsquare-web.png",
+      "https://images.pexels.com/photos/5905625/pexels-photo-5905625.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "CertSecure",
     link: "/",
     thumbnail:
-      "https://assets.devfolio.co/hackathons/edb2de3dddac4e138dbccad4dbe629dc/projects/290a7eb9ae4e42518dc3fc6e107f24e2/177ef435-3fc7-4e54-b96a-70b9f9206318.jpeg",
+      "https://images.pexels.com/photos/5905479/pexels-photo-5905479.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Credence",
     link: "https://credencee.vercel.app/",
     thumbnail:
-      "https://assets.devfolio.co/hackathons/870790376a9544d888f76cd3c3dfd667/projects/24c7bcc6ed1e403e8fa825aef559287c/d1d6a0ed-c84c-4b68-8b72-5fa1effd99e0.jpeg",
+      "https://images.pexels.com/photos/9207308/pexels-photo-9207308.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Not Used",
     link: "/",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
+      "https://images.pexels.com/photos/9207308/pexels-photo-9207308.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Not Used",
@@ -79,24 +79,24 @@ export const products = [
     title: "Tech Tietans",
     link: "https://tietans.tech/",
     thumbnail:
-      "/tietans-web.png",
+      "https://images.pexels.com/photos/115558/pexels-photo-115558.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Sarthaki",
     link: "https://sarthaki-v1-0.vercel.app",
     thumbnail:
-      "/sarthaki-web.png",
+      "https://images.pexels.com/photos/22823/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "Legally Yours",
     link: "https://legallyyours.co.in",
     thumbnail:
-      "/legallyyours-web.png",
+      "https://images.pexels.com/photos/2381463/pexels-photo-2381463.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
     title: "GDSC CRCE",
     link: "https://gdsc-crce.vercel.app/",
     thumbnail:
-      "/gdsc-web.png",
+      "https://images.pexels.com/photos/162625/grinder-hitachi-power-tool-flexible-162625.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
 ];
