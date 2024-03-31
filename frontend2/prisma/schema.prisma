@@ -184,7 +184,7 @@ model Teachercourse {
     description  String?
     price        Int?
     chapterCount Int?
-    user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    User         User          @relation(fields: [userId], references: [id])
 
     @@index([userId], name: "userId")
 }
