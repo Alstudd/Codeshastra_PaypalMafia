@@ -1,36 +1,5 @@
 export const ABI = [
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_courseId",
-        type: "uint256",
-      },
-    ],
-    name: "buyCourse",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_courseId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_student",
-        type: "address",
-      },
-    ],
-    name: "completeCourse",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -117,19 +86,51 @@ export const ABI = [
     type: "event",
   },
   {
+    anonymous: false,
     inputs: [
       {
-        internalType: "string",
-        name: "_title",
-        type: "string",
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
       },
       {
+        indexed: false,
         internalType: "uint256",
-        name: "_price",
+        name: "amount",
         type: "uint256",
       },
     ],
-    name: "createCourse",
+    name: "ExtraAmountWithdrawn",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_courseId",
+        type: "uint256",
+      },
+    ],
+    name: "buyCourse",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_courseId",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_student",
+        type: "address",
+      },
+    ],
+    name: "completeCourse",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -157,6 +158,43 @@ export const ABI = [
       {
         internalType: "uint256",
         name: "price",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_title",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_price",
+        type: "uint256",
+      },
+    ],
+    name: "createCourse",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "extraAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
         type: "uint256",
       },
     ],
@@ -291,6 +329,13 @@ export const ABI = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "withdrawExtraAmount",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ];
