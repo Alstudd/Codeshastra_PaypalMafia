@@ -6,10 +6,12 @@ import React, { useEffect, useState } from "react";
 import { buyCourse } from "../../../Web3/utils";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "lib/firebase";
+import VideoThumbnail from 'react-video-thumbnail'
 
 const CoursesBuyPreview = (props: { courseId: string }) => {
   const { courseId: id } = props;
   const myId = id.params.courseId;
+  const [imageBase64, setImageBase64] = useState('')
 
   const [arr, setArr] = useState([]);
 
@@ -51,13 +53,18 @@ const CoursesBuyPreview = (props: { courseId: string }) => {
             <div key={index}>
               <div className="grid gap-7 md:grid-cols-3">
                 <div className="rounded-md">
-                  <Image
+                  {/* <Image
                     src="/Download.png"
                     height={500}
                     width={1000}
                     alt="certificate"
                     className="rounded-md border-2 border-white"
-                  />
+                  /> */}
+                  <VideoThumbnail videoUrl={values.url} thumbnailHandler={
+                    thumbnail => setImageBase64(thumbnail)}
+                    width={400}
+                    height={300}
+                   />
                 </div>
                 <div className="col-span-2">
                   <h3 className="mb-1 text-2xl font-bold tracking-tight text-black ">
